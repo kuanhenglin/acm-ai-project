@@ -42,6 +42,13 @@ def main():
         device=device
     )
 
+    # save model
+    torch.save(model.state_dict(), 'model.pth')
+
+    # load with
+    # model = StartingNetwork(args)
+    # model.load_state_dict(torch.load('model.pth'))
+    # model.eval()
 
 if __name__ == "__main__":
     main()

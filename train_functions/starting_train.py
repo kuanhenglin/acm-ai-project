@@ -53,10 +53,21 @@ def starting_train(train_dataset, val_dataset, dimensions, model, hyperparameter
     )
 
     # Initalize optimizer (for gradient descent) and loss function
-    optimizer = optim.Adam(model.parameters())
+    #optimizer = optim.Adam(model.parameters())
     loss_fn = nn.CrossEntropyLoss().to(device)  # move to gpu
 
+    # a learning rate of 0.1 is an ok place to start, but you should play around with different learning rates!
+    # also a small weight_decay (l2 regularization) greater than 0 is a good idea to prevent overfitting
+    optimizer = optim.SGD([{'params': model.fc1.parameters()}, # use default learning rate of 0.1 for fc layers
+                            {'params': model.fc2.parameters()}, # use default learning rate of 0.1 for fc layers
+                            {'params': model.model_a.parameters(), 'lr': 1e-3} # use smaller learning rate of 0.001 for the encoder (resnet)
+                            ], lr=0.1, momentum=0.9, weight_decay=5e-4)
+
+    # this lr scheduler multiplies the lr by 0.1 after 20, and 40 epochs respectively
+    # lr_scheduler = optim.lr_scheduler.MultiStepLR(optimizer, milestones=[20, 40], gamma=0.1)
+    
     train_total, train_correct, train_loss, train_num = 0, 0, 0, 0
+
     for epoch in range(epochs):
         print(f"Epoch {epoch + 1} of {epochs}")
 
@@ -78,6 +89,9 @@ def starting_train(train_dataset, val_dataset, dimensions, model, hyperparameter
 
             current_loss.backward()
             optimizer.step()
+
+            # learning rate scheduling
+            # lr_scheduler.step()
         
         val_acc, val_loss = evaluate(val_loader, model, dimensions, device, loss_fn)
         print(f"Training accuracy: {train_correct / train_total}\tLoss: {train_loss / train_num}")

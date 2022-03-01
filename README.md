@@ -1,6 +1,6 @@
 # ACM AI Project Winter 2022
 
-Brandon, Jordan, and Siddarth
+Brandon, Edwin, Jordan, and Siddharth
 
 ## Setup
 
