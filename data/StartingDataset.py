@@ -5,6 +5,7 @@ import pandas as pd
 from PIL import Image
 import torchvision.transforms as transforms
 import re
+import matplotlib.pyplot as plt
 from random import shuffle
 
 INPUT_WIDTH=224
@@ -91,8 +92,7 @@ class StartingDataset(torch.utils.data.Dataset):
             cj = transforms.ColorJitter(brightness=.5,contrast=.5)
             im = cj.forward(im)
         
-        # perform transformation if filename has _ in it
-        
+        # perform transformation if filename has _ in it       
         normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         normalize(im)
         example = (im, label)
