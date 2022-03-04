@@ -94,5 +94,5 @@ def starting_train(train_dataset, val_dataset, dimensions, model, hyperparameter
             # lr_scheduler.step()
         
         val_acc, val_loss = evaluate(val_loader, model, dimensions, device, loss_fn)
-        print(f"Training accuracy: {train_correct / train_total}\tLoss: {train_loss / train_num}")
-        print(f"Validation accuracy: {val_acc}\tLoss: {val_loss}")
+        print(f"Training accuracy: {train_correct / train_total}   Loss: {train_loss / train_num}")
+        print(f"Validation accuracy: {val_acc}   Loss: {val_loss}")

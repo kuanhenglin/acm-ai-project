@@ -31,7 +31,7 @@ def main():
     val_dataset = StartingDataset(False, PATH, sample_factor)
     model = StartingNetwork()
     model = model.to(device)  # move to gpu if necessary
-    
+
     starting_train(
         train_dataset=train_dataset,
         val_dataset=val_dataset,
@@ -43,12 +43,16 @@ def main():
     )
 
     # save model
-    torch.save(model.state_dict(), 'model.pth')
+    # torch.save(model.state_dict(), 'model.pth')
+
+    torch.save(model, "cassavision-2model")
 
     # load with
     # model = StartingNetwork(args)
     # model.load_state_dict(torch.load('model.pth'))
     # model.eval()
+
+    
 
 if __name__ == "__main__":
     main()
